@@ -1,42 +1,71 @@
 'use strict'
 
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
+import marked from 'marked'
+
+import MarkdownEditor from './components/markdown-editor'
 
 import './css/style.css'
 
-class App extends PureComponent {
+import('highlightjs').then((hljs) => {
+  marked.setOptions({
+    highlight: (code, lang) => {
+      if (lang && hljs.getLanguage(lang)) {
+        return hljs.highlight(lang, code).value
+      }
+      return hljs.highlightAuto(code).value
+    }
+  })
+})
+
+class App extends Component {
   constructor () {
     super()
     this.state = {
-      title: '...',
-      Component: 'div'
+      value: '',
+      isSaving: false
+    }
+    this.handleChange = (e) => {
+      this.setState({
+        value: e.target.value,
+        isSaving: true
+      })
+    }
+
+    this.getMarkup = () => {
+      return { __html: marked(this.state.value) }
+    }
+
+    this.handleSave = (value) => {
+      localStorage.setItem('md', this.state.value)
+      this.setState({ isSaving: false })
     }
   }
 
-  getTitle () {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve('My app with async / await!')
-      }, 2000)
-    })
+  componentDidMount () {
+    const value = localStorage.getItem('md')
+    this.setState({ value })
   }
 
-  async componentDidMount () {
-    const title = await import('components/title')
+  componentDidUpdate () {
+    clearInterval(this.timer)
+    this.timer = setTimeout(this.handleSave, 500)
+  }
 
-    this.setState({
-      title: await this.getTitle(),
-      Component: title.default
-    })
+  componentWillMount () {
+    clearInterval(this.timer)
   }
 
   render () {
     return (
-      <div>
-        <this.state.Component>{this.state.title}</this.state.Component>
-      </div>
+      <MarkdownEditor
+        value={this.state.value}
+        isSaving={this.state.isSaving}
+        handleChange={this.handleChange}
+        handleSave={this.handleSave}
+        getMarkup={this.getMarkup}
+       />
     )
   }
 }
-
 export default App
