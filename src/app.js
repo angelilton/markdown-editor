@@ -37,14 +37,30 @@ class App extends Component {
     }
 
     this.handleSave = (value) => {
-      localStorage.setItem('md', this.state.value)
-      this.setState({ isSaving: false })
+      if (this.state.isSaving) {
+        localStorage.setItem('md', this.state.value)
+        this.setState({ isSaving: false })
+      }
+    }
+
+    this.handleRemove = () => {
+      localStorage.removeItem('md')
+      this.setState({ value: '' })
+    }
+
+    this.handleCreate = () => {
+      this.setState({ value: '' })
+      this.textarea.focus()
+    }
+
+    this.textareaRef = (node) => {
+      this.textarea = node
     }
   }
 
   componentDidMount () {
     const value = localStorage.getItem('md')
-    this.setState({ value })
+    this.setState({ value: value || '' })
   }
 
   componentDidUpdate () {
@@ -61,9 +77,12 @@ class App extends Component {
       <MarkdownEditor
         value={this.state.value}
         isSaving={this.state.isSaving}
+        handleRemove={this.handleRemove}
+        handleCreate={this.handleCreate}
         handleChange={this.handleChange}
         handleSave={this.handleSave}
         getMarkup={this.getMarkup}
+        textareaRef={this.textareaRef}
        />
     )
   }
