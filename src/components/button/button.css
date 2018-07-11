@@ -1,0 +1,23 @@
+.btn {
+  border: 0;
+  padding: 0 20px;
+  color: #fff;
+  text-transform: uppercase;
+  transition: all 0.25s ease-in-out;
+}
+
+.btn.-danger {
+  background: red;
+}
+
+.btn.-danger:hover {
+  background: darkred;
+}
+
+.btn.-success {
+  background: green;
+}
+
+.btn-success:hover {
+  background: darkgreen;
+}

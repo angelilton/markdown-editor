@@ -72,16 +72,3 @@ textarea:focus {
   min-width: 20%;
   max-width: 20%;
 }
-
-.btn-remove {
-  border: 0;
-  background: red;
-  padding: 0 20px;
-  color: #fff;
-  text-transform: uppercase;
-  transition: all 0.25s ease-in-out;
-}
-
-.btn-remove:hover {
-  background: darkred;
-}

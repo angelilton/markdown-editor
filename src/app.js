@@ -3,7 +3,7 @@
 import React, { Component } from 'react'
 import marked from 'marked'
 
-import MarkdownEditor from './components/markdown-editor'
+import MarkdownEditor from './views/markdown-editor'
 
 import './css/style.css'
 
@@ -23,7 +23,7 @@ class App extends Component {
     super()
     this.state = {
       value: '',
-      isSaving: false
+      isSaving: null
     }
     this.handleChange = (e) => {
       this.setState({
