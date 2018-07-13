@@ -14,7 +14,7 @@ stories.add('SaveMessage with isSaving = null', () => (
 
 stories.add('SaveMessage with isSaving = true', () => (
   <div style={{ background: '#ccc' }}>
-    Message: "<SaveMessage isSaving={true} />"
+    Message: "<SaveMessage isSaving />"
   </div>
 ))
 
