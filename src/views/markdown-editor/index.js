@@ -3,13 +3,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Header from './header'
+import Files from './files'
 
-const MardownEditor = ({ value, handleChange, getMarkup, textareaRef, ...props }) => (
+const MardownEditor = ({ value, handleChange, getMarkup, textareaRef, files, handleOpenFile, ...props }) => (
   <section className='editor'>
-    <Header {...props} />
+    <Header {...props} handleChange={handleChange} />
+    <Files files={files} handleOpenFile={handleOpenFile} />
     <textarea
       value={value}
-      onChange={handleChange}
+      onChange={handleChange('value')}
       placeholder={'Digite aqui'}
       ref={textareaRef}
       autoFocus
