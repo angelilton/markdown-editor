@@ -7,7 +7,7 @@ const { spawn } = require('child_process')
 // const { spawn } = require('cross-spawn')
 
 gulp.task('lint', (cb) => {
-  const cmd = spawn('yarn', ['lint'], { stdio: 'inherit' })
+  const cmd = spawn('npm', ['lint'], { stdio: 'inherit' })
   cmd.on('close', () => cb())
 })
 
